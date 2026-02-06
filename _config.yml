@@ -19,11 +19,18 @@ latex:
 bibtex_bibfiles:
   - references.bib
 
-# Information about where the book exists on the web
+# Información del repositorio (NECESARIO para que Colab encuentre tus archivos)
 repository:
-  url: https://github.com/executablebooks/jupyter-book  # Online location of your book
-  path_to_book: docs  # Optional path to your book, relative to the repository root
-  branch: master  # Which branch of the repository should be used when creating links (optional)
+  url: https://github.com/jmpintog1/libro-fisica-vivo  # La URL de tu repo
+  path_to_book: "."  # Donde está el libro (raíz)
+  branch: main  # La rama principal
+
+# Configuración de los botones de lanzamiento
+launch_buttons:
+  notebook_interface: "classic" 
+  colab_url: "https://colab.research.google.com"
+  # Muestra el botón de Colab
+  colab: true
 
 # Add GitHub buttons to your book
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
