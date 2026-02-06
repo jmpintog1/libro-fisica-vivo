@@ -1,15 +1,4 @@
 Traceback (most recent call last):
-  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/nbclient/client.py", line 618, in _async_poll_for_reply
-    msg = await ensure_async(self.kc.shell_channel.get_msg(timeout=new_timeout))
-  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/nbclient/util.py", line 96, in ensure_async
-    result = await obj
-  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/jupyter_client/channels.py", line 230, in get_msg
-    raise Empty
-_queue.Empty
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
   File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
     executenb(
   File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/nbclient/client.py", line 1085, in execute
@@ -22,18 +11,17 @@ Traceback (most recent call last):
     return future.result()
   File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/nbclient/client.py", line 551, in async_execute
     await self.async_execute_cell(
-  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/nbclient/client.py", line 830, in async_execute_cell
-    exec_reply = await self.task_poll_for_reply
-  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/nbclient/client.py", line 642, in _async_poll_for_reply
-    await self._async_handle_timeout(timeout, cell)
-  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/nbclient/client.py", line 689, in _async_handle_timeout
-    raise CellTimeoutError.error_from_timeout_and_cell(
-nbclient.exceptions.CellTimeoutError: A cell timed out while it was being executed, after 30 seconds.
-The message was: Cell execution timed out.
-Here is a preview of the cell contents:
--------------------
-['import numpy as np', 'import plotly.graph_objects as go', 'import plotly.figure_factory as ff', 'from IPython.display import HTML', '']
-...
-["    plot_bgcolor='rgba(240,240,240,0.5)' # Fondo gris claro", ')', '', '# --- 5. INYECCIÓN HTML PARA LA WEB ---', "HTML(fig.to_html(include_plotlyjs='cdn'))"]
--------------------
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/nbclient/client.py", line 846, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/nbclient/client.py", line 748, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+%%tikz -s 400,400 -f svg
+\draw [fill=orange] (0,0) circle (1);
+\draw (0,0) -- (2,2);
+------------------
+
+
+UsageError: Cell magic `%%tikz` not found.
 
