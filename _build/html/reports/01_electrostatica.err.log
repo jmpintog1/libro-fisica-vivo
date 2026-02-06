@@ -17,9 +17,26 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
+# --- INICIO DEL PARCHE (Copiar esto al principio) ---
+import sys
+import importlib
+
+# Si Python es antiguo (< 3.9) y falta la función 'files', la inyectamos a la fuerza
+try:
+    importlib.resources.files
+except AttributeError:
+    try:
+        import importlib_resources
+        importlib.resources.files = importlib_resources.files
+    except ImportError:
+        print("ERROR CRÍTICO: Necesitas instalar la librería 'importlib-resources'.")
+        print("Ejecuta en tu terminal: pip install importlib-resources")
+
+# --- FIN DEL PARCHE ---
+
 from jupyterquiz import display_quiz
 
-# Definimos las preguntas usando una estructura de datos simple
+# Definimos las preguntas
 questions = [
     {
         "question": "1. Si en el problema original la carga $q_1$ fuera $+q$ y la carga $q_2$ fuera $-2q$ (manteniendo la misma distancia $d$), ¿dónde debería ubicarse $q_3$ para que la fuerza neta sea cero?",
@@ -117,32 +134,23 @@ display_quiz(questions)
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mAttributeError[0m                            Traceback (most recent call last)
-Cell [0;32mIn[6], line 96[0m
-[1;32m      3[0m [38;5;66;03m# Definimos las preguntas usando una estructura de datos simple[39;00m
-[1;32m      4[0m questions [38;5;241m=[39m [
-[1;32m      5[0m     {
-[1;32m      6[0m         [38;5;124m"[39m[38;5;124mquestion[39m[38;5;124m"[39m: [38;5;124m"[39m[38;5;124m1. Si en el problema original la carga $q_1$ fuera $+q$ y la carga $q_2$ fuera $-2q$ (manteniendo la misma distancia $d$), ¿dónde debería ubicarse $q_3$ para que la fuerza neta sea cero?[39m[38;5;124m"[39m,
-[0;32m   (...)[0m
-[1;32m     93[0m     }
-[1;32m     94[0m ]
-[0;32m---> 96[0m [43mdisplay_quiz[49m[43m([49m[43mquestions[49m[43m)[49m
+Cell [0;32mIn[6], line 7[0m
+[1;32m      6[0m [38;5;28;01mtry[39;00m:
+[0;32m----> 7[0m     [43mimportlib[49m[38;5;241;43m.[39;49m[43mresources[49m[38;5;241m.[39mfiles
+[1;32m      8[0m [38;5;28;01mexcept[39;00m [38;5;167;01mAttributeError[39;00m:
 
-File [0;32m/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/jupyterquiz/dynamic/display.py:77[0m, in [0;36mdisplay_quiz[0;34m(ref, num, shuffle_questions, shuffle_answers, preserve_responses, border_radius, question_alignment, max_width, colors, load_js)[0m
-[1;32m     73[0m [38;5;66;03m# Render HTML container and styles[39;00m
-[1;32m     74[0m mydiv [38;5;241m=[39m render_div(div_id, shuffle_questions, shuffle_answers,
-[1;32m     75[0m                    preserve_responses, num,
-[1;32m     76[0m                    max_width, border_radius, question_alignment)
-[0;32m---> 77[0m styles [38;5;241m=[39m [43mbuild_styles[49m[43m([49m[43mdiv_id[49m[43m,[49m[43m [49m[43mcolor_dict[49m[43m)[49m
-[1;32m     79[0m [38;5;66;03m# Combine all JavaScript[39;00m
-[1;32m     80[0m javascript [38;5;241m=[39m build_script(prefix_script, static, url, div_id, load_js)
+[0;31mAttributeError[0m: module 'importlib' has no attribute 'resources'
 
-File [0;32m/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/jupyterquiz/dynamic/renderer.py:36[0m, in [0;36mbuild_styles[0;34m(div_id, color_dict)[0m
-[1;32m     34[0m styles [38;5;241m+[39m[38;5;241m=[39m [38;5;124m'[39m[38;5;124m}[39m[38;5;130;01m\n[39;00m[38;5;130;01m\n[39;00m[38;5;124m'[39m
-[1;32m     35[0m [38;5;66;03m# Append shared CSS[39;00m
-[0;32m---> 36[0m css_path [38;5;241m=[39m [43mimportlib[49m[38;5;241;43m.[39;49m[43mresources[49m[38;5;241;43m.[39;49m[43mfiles[49m(package)[38;5;241m.[39mjoinpath([38;5;124m'[39m[38;5;124mstyles.css[39m[38;5;124m'[39m)
-[1;32m     37[0m css [38;5;241m=[39m css_path[38;5;241m.[39mread_bytes()[38;5;241m.[39mdecode([38;5;124m'[39m[38;5;124mutf-8[39m[38;5;124m'[39m)
-[1;32m     38[0m styles [38;5;241m+[39m[38;5;241m=[39m css
+During handling of the above exception, another exception occurred:
 
-[0;31mAttributeError[0m: module 'importlib.resources' has no attribute 'files'
-AttributeError: module 'importlib.resources' has no attribute 'files'
+[0;31mAttributeError[0m                            Traceback (most recent call last)
+Cell [0;32mIn[6], line 11[0m
+[1;32m      9[0m [38;5;28;01mtry[39;00m:
+[1;32m     10[0m     [38;5;28;01mimport[39;00m [38;5;21;01mimportlib_resources[39;00m
+[0;32m---> 11[0m     [43mimportlib[49m[38;5;241;43m.[39;49m[43mresources[49m[38;5;241m.[39mfiles [38;5;241m=[39m importlib_resources[38;5;241m.[39mfiles
+[1;32m     12[0m [38;5;28;01mexcept[39;00m [38;5;167;01mImportError[39;00m:
+[1;32m     13[0m     [38;5;28mprint[39m([38;5;124m"[39m[38;5;124mERROR CRÍTICO: Necesitas instalar la librería [39m[38;5;124m'[39m[38;5;124mimportlib-resources[39m[38;5;124m'[39m[38;5;124m.[39m[38;5;124m"[39m)
+
+[0;31mAttributeError[0m: module 'importlib' has no attribute 'resources'
+AttributeError: module 'importlib' has no attribute 'resources'
 
