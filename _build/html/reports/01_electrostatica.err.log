@@ -17,11 +17,132 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-%%tikz -s 400,400 -f svg
-\draw [fill=orange] (0,0) circle (1);
-\draw (0,0) -- (2,2);
+from jupyterquiz import display_quiz
+
+# Definimos las preguntas usando una estructura de datos simple
+questions = [
+    {
+        "question": "1. Si en el problema original la carga $q_1$ fuera $+q$ y la carga $q_2$ fuera $-2q$ (manteniendo la misma distancia $d$), ¿dónde debería ubicarse $q_3$ para que la fuerza neta sea cero?",
+        "type": "multiple_choice",
+        "answers": [
+            {
+                "answer": "Entre $q_1$ y $q_2$.",
+                "correct": False,
+                "feedback": "Incorrecto. Entre cargas de signo opuesto las fuerzas se suman, no se cancelan."
+            },
+            {
+                "answer": "A la izquierda de $q_1$.",
+                "correct": True,
+                "feedback": "¡Correcto! Al tener signos opuestos, el equilibrio está fuera. Como $|q_1| < |q_2|$, debe estar más cerca de la carga menor."
+            },
+            {
+                "answer": "A la derecha de $q_2$.",
+                "correct": False,
+                "feedback": "Incorrecto. Estaría más cerca de la carga mayor ($2q$), por lo que su fuerza dominaría y no habría equilibrio."
+            },
+            {
+                "answer": "No es posible encontrar un punto de equilibrio.",
+                "correct": False,
+                "feedback": "Incorrecto. Sí existe un punto donde las fuerzas se anulan."
+            }
+        ]
+    },
+    {
+        "question": "2. Si la carga $q_3$ está en equilibrio y duplicamos la magnitud de $q_1$ a $+2q$ (manteniendo $q_2=+2q$), ¿qué ocurrirá con la fuerza neta sobre $q_3$?",
+        "type": "multiple_choice",
+        "answers": [
+            {
+                "answer": "La fuerza neta seguirá siendo cero.",
+                "correct": False,
+                "feedback": "Falso. El equilibrio se rompe al cambiar una de las magnitudes."
+            },
+            {
+                "answer": "La fuerza neta apuntará hacia $q_1$.",
+                "correct": False,
+                "feedback": "Incorrecto. La fuerza de $q_2$ no ha aumentado, pero la de $q_1$ sí."
+            },
+            {
+                "answer": "La fuerza neta apuntará hacia $q_2$.",
+                "correct": True,
+                "feedback": "¡Correcto! La repulsión desde $q_1$ (izquierda) aumenta, empujando $q_3$ hacia la derecha (hacia $q_2$)."
+            }
+        ]
+    },
+    {
+        "question": "3. Si cambiamos el signo de $q_3$ (de positivo a negativo), ¿cómo afecta esto a la posición de equilibrio calculada?",
+        "type": "multiple_choice",
+        "answers": [
+            {
+                "answer": "Se desplaza hacia $q_1$.",
+                "correct": False,
+                "feedback": "No. La posición geométrica del equilibrio de fuerzas no depende del signo de la carga de prueba."
+            },
+            {
+                "answer": "Se desplaza hacia $q_2$.",
+                "correct": False,
+                "feedback": "No. La posición geométrica del equilibrio de fuerzas no depende del signo de la carga de prueba."
+            },
+            {
+                "answer": "La posición de equilibrio no se ve afectada.",
+                "correct": True,
+                "feedback": "¡Correcto! Matemáticamente $q_3$ se cancela. Físicamente, las fuerzas se invierten pero siguen oponiéndose entre sí."
+            }
+        ]
+    },
+    {
+        "question": "4. ¿Por qué se descartó la solución matemática negativa $x < 0$ (a la izquierda de $q_1$) para el caso de dos cargas positivas?",
+        "type": "multiple_choice",
+        "answers": [
+            {
+                "answer": "Porque $x$ negativo no tiene sentido físico.",
+                "correct": False,
+                "feedback": "Las coordenadas negativas tienen sentido físico, el problema es la dirección de las fuerzas."
+            },
+            {
+                "answer": "Porque en esa posición las fuerzas de $q_1$ y $q_2$ apuntan en la misma dirección.",
+                "correct": True,
+                "feedback": "¡Exacto! A la izquierda, ambas cargas empujan hacia el mismo lado. No pueden cancelarse."
+            },
+            {
+                "answer": "Porque la magnitud de la fuerza sería infinita.",
+                "correct": False,
+                "feedback": "Incorrecto. La fuerza solo es infinita si $r=0$."
+            }
+        ]
+    }
+]
+
+display_quiz(questions)
 ------------------
 
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mAttributeError[0m                            Traceback (most recent call last)
+Cell [0;32mIn[6], line 96[0m
+[1;32m      3[0m [38;5;66;03m# Definimos las preguntas usando una estructura de datos simple[39;00m
+[1;32m      4[0m questions [38;5;241m=[39m [
+[1;32m      5[0m     {
+[1;32m      6[0m         [38;5;124m"[39m[38;5;124mquestion[39m[38;5;124m"[39m: [38;5;124m"[39m[38;5;124m1. Si en el problema original la carga $q_1$ fuera $+q$ y la carga $q_2$ fuera $-2q$ (manteniendo la misma distancia $d$), ¿dónde debería ubicarse $q_3$ para que la fuerza neta sea cero?[39m[38;5;124m"[39m,
+[0;32m   (...)[0m
+[1;32m     93[0m     }
+[1;32m     94[0m ]
+[0;32m---> 96[0m [43mdisplay_quiz[49m[43m([49m[43mquestions[49m[43m)[49m
 
-UsageError: Cell magic `%%tikz` not found.
+File [0;32m/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/jupyterquiz/dynamic/display.py:77[0m, in [0;36mdisplay_quiz[0;34m(ref, num, shuffle_questions, shuffle_answers, preserve_responses, border_radius, question_alignment, max_width, colors, load_js)[0m
+[1;32m     73[0m [38;5;66;03m# Render HTML container and styles[39;00m
+[1;32m     74[0m mydiv [38;5;241m=[39m render_div(div_id, shuffle_questions, shuffle_answers,
+[1;32m     75[0m                    preserve_responses, num,
+[1;32m     76[0m                    max_width, border_radius, question_alignment)
+[0;32m---> 77[0m styles [38;5;241m=[39m [43mbuild_styles[49m[43m([49m[43mdiv_id[49m[43m,[49m[43m [49m[43mcolor_dict[49m[43m)[49m
+[1;32m     79[0m [38;5;66;03m# Combine all JavaScript[39;00m
+[1;32m     80[0m javascript [38;5;241m=[39m build_script(prefix_script, static, url, div_id, load_js)
+
+File [0;32m/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/jupyterquiz/dynamic/renderer.py:36[0m, in [0;36mbuild_styles[0;34m(div_id, color_dict)[0m
+[1;32m     34[0m styles [38;5;241m+[39m[38;5;241m=[39m [38;5;124m'[39m[38;5;124m}[39m[38;5;130;01m\n[39;00m[38;5;130;01m\n[39;00m[38;5;124m'[39m
+[1;32m     35[0m [38;5;66;03m# Append shared CSS[39;00m
+[0;32m---> 36[0m css_path [38;5;241m=[39m [43mimportlib[49m[38;5;241;43m.[39;49m[43mresources[49m[38;5;241;43m.[39;49m[43mfiles[49m(package)[38;5;241m.[39mjoinpath([38;5;124m'[39m[38;5;124mstyles.css[39m[38;5;124m'[39m)
+[1;32m     37[0m css [38;5;241m=[39m css_path[38;5;241m.[39mread_bytes()[38;5;241m.[39mdecode([38;5;124m'[39m[38;5;124mutf-8[39m[38;5;124m'[39m)
+[1;32m     38[0m styles [38;5;241m+[39m[38;5;241m=[39m css
+
+[0;31mAttributeError[0m: module 'importlib.resources' has no attribute 'files'
+AttributeError: module 'importlib.resources' has no attribute 'files'
 
