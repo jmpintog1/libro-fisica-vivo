@@ -1,0 +1,51 @@
+Traceback (most recent call last):
+  File "/Users/jm/Desktop/venv/lib/python3.7/site-packages/jupyter_cache/executors/utils.py", line 64, in single_nb_execution
+    **kwargs,
+  File "/Users/jm/Desktop/venv/lib/python3.7/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/jm/Desktop/venv/lib/python3.7/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/Users/jm/Desktop/venv/lib/python3.7/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/Users/jm/opt/anaconda3/lib/python3.7/asyncio/base_events.py", line 579, in run_until_complete
+    return future.result()
+  File "/Users/jm/Desktop/venv/lib/python3.7/site-packages/nbclient/client.py", line 664, in async_execute
+    cell, index, execution_count=self.code_cells_executed + 1
+  File "/Users/jm/Desktop/venv/lib/python3.7/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/jm/Desktop/venv/lib/python3.7/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Fixing random state for reproducibility
+np.random.seed(19680801)
+
+N = 10
+data = [np.logspace(0, 1, 100) + np.random.randn(100) + ii for ii in range(N)]
+data = np.array(data).T
+cmap = plt.cm.coolwarm
+rcParams['axes.prop_cycle'] = cycler(color=cmap(np.linspace(0, 1, N)))
+
+
+from matplotlib.lines import Line2D
+custom_lines = [Line2D([0], [0], color=cmap(0.), lw=4),
+                Line2D([0], [0], color=cmap(.5), lw=4),
+                Line2D([0], [0], color=cmap(1.), lw=4)]
+
+fig, ax = plt.subplots(figsize=(10, 5))
+lines = ax.plot(data)
+ax.legend(custom_lines, ['Cold', 'Medium', 'Hot']);
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+[0;32m/var/folders/lp/k3d7wsvj24z_t26h3xs6pdsr0000gn/T/ipykernel_74278/3412760897.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      6[0m [0mdata[0m [0;34m=[0m [0mnp[0m[0;34m.[0m[0marray[0m[0;34m([0m[0mdata[0m[0;34m)[0m[0;34m.[0m[0mT[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      7[0m [0mcmap[0m [0;34m=[0m [0mplt[0m[0;34m.[0m[0mcm[0m[0;34m.[0m[0mcoolwarm[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 8[0;31m [0mrcParams[0m[0;34m[[0m[0;34m'axes.prop_cycle'[0m[0;34m][0m [0;34m=[0m [0mcycler[0m[0;34m([0m[0mcolor[0m[0;34m=[0m[0mcmap[0m[0;34m([0m[0mnp[0m[0;34m.[0m[0mlinspace[0m[0;34m([0m[0;36m0[0m[0;34m,[0m [0;36m1[0m[0;34m,[0m [0mN[0m[0;34m)[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      9[0m [0;34m[0m[0m
+[1;32m     10[0m [0;34m[0m[0m
+
+[0;31mNameError[0m: name 'cycler' is not defined
+NameError: name 'cycler' is not defined
+
